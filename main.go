@@ -26,19 +26,30 @@ func main() {
 
 	problems := parseLines(lines)
 
+	// correct count
 	correct := 0
 
+	// iterate through and ask the problems and keep count
 	for i, p := range problems {
-		fmt.Printf("Problem #%d: %s = \n", i+1, p.question)
-		var answer string
-		_, _ = fmt.Scanf("%s\n", &answer)
-
-		if answer == p.answer {
-			correct++
-		}
+		correct = askQuestion(i, p, correct)
 	}
 
 	fmt.Printf("You scored %d out of %d", correct, len(problems))
+}
+
+func askQuestion(i int, p problem, correct int) int {
+	fmt.Printf("Problem #%d: %s = \n", i+1, p.question)
+	var answer string
+	_, _ = fmt.Scanf("%s\n", &answer)
+	if answer == p.answer {
+		correct++
+	}
+	return correct
+}
+
+type problem struct {
+	question string
+	answer   string
 }
 
 func parseLines(lines [][]string) []problem {
@@ -51,11 +62,6 @@ func parseLines(lines [][]string) []problem {
 		}
 	}
 	return probs
-}
-
-type problem struct {
-	question string
-	answer   string
 }
 
 func exit(msg string) {

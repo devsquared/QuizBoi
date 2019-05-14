@@ -1,4 +1,4 @@
-package quizboi
+package main
 
 import (
 	"encoding/csv"
